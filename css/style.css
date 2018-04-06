@@ -1,0 +1,11 @@
+ .bar {
+      fill: lightblue;
+    }
+    .bar:hover {
+      fill: red;
+    }
+.chart {
+  border: solid 1px black;
+  margin: 20px;
+  box-shadow: 1px 1px 1px 1px;
+}
