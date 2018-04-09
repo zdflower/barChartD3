@@ -8,11 +8,13 @@ Resources used:
 - [D3 fetch](https://github.com/d3/d3-fetch), for parsing csv, json, etc. 
 - [D3 for mere mortals](http://www.recursion.org/d3-for-mere-mortals/)
 - [Let's make a bar chart](https://bost.ocks.org/mike/bar/3/)
+- [d3 axis labeling](https://stackoverflow.com/questions/11189284/d3-axis-labeling)
+- [Title and axis labels](https://stackoverflow.com/questions/14605348/title-and-axis-labels)
 */
 
 var parseTime = d3.timeParse("%Y-%m-%d");
 
-	  const margin = {top: 20, right: 20, bottom: 60, left: 80};
+	  const margin = {top: 20, right: 20, bottom: 100, left: 100};
       
       let w = 960 - margin.left - margin.right;
       let h = 500 - margin.top - margin.bottom;
@@ -59,10 +61,34 @@ var parseTime = d3.timeParse("%Y-%m-%d");
 					return "PBI: $" + d[1] + " Billion\n" + year + " - " + getMonthName(month);
 				});
 
+    // chart title
+  chart.append("text")
+  .attr("class", "chartTitle")
+  .attr("x", 380)
+  .attr("y", 20)
+  .style("text-anchor", "middle")
+  .text("PBI EEUU Billions por trimestre");
+    
+    // x - axis label
+    chart.append("text")
+    .attr("x", 200)
+    .attr("y", 450)
+    .attr("class", "label")
+    .text("Trimestres desde 1947 a 2015")
+    
+    // y - axis label
+    chart.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", "-250")
+    .attr("y", "-65")
+    .attr("class", "label")
+    .text("Billions")
+    
+    // x axis
   chart.append("g")
       .attr("transform", "translate(0," + h + ")")
       .call(d3.axisBottom(x).ticks(10));
-
+// y axis
   chart.append("g")
        .call(d3.axisLeft(y).ticks(10));
        
