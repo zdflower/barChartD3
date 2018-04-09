@@ -9,3 +9,16 @@
   margin: 20px;
   box-shadow: 1px 1px 1px 1px;
 }
+
+.chartTitle{
+  font-size: 24pt;
+}
+
+.axis text {
+  font-family: cursive;
+  font-size: 10pt;
+}
+
+.label {
+  font-size: 20pt;
+}
