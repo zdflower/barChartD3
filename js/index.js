@@ -53,6 +53,8 @@ var parseTime = d3.timeParse("%Y-%m-%d");
 			.attr("y", (d) => y(d[1]))
 			.attr("x", (d) => x(d[0]))
 			.attr("class", "bar")
+    .attr("data-date", (d) => d[0])
+    .attr("data-gdp", (d) => d[1])
 			.append("title")
 				.text((d) => {
 					const date = d[0];
@@ -64,6 +66,7 @@ var parseTime = d3.timeParse("%Y-%m-%d");
     // chart title
   chart.append("text")
   .attr("class", "chartTitle")
+    .attr('id', 'title')
   .attr("x", 380)
   .attr("y", 20)
   .style("text-anchor", "middle")
@@ -86,10 +89,12 @@ var parseTime = d3.timeParse("%Y-%m-%d");
     
     // x axis
   chart.append("g")
+    .attr('id', 'x-axis')
       .attr("transform", "translate(0," + h + ")")
       .call(d3.axisBottom(x).ticks(10));
 // y axis
   chart.append("g")
+    .attr('id', 'y-axis')
        .call(d3.axisLeft(y).ticks(10));
        
 }).catch((error) => console.error(error));
