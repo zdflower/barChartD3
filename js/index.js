@@ -12,6 +12,10 @@ Resources used:
 - [Title and axis labels](https://stackoverflow.com/questions/14605348/title-and-axis-labels)
 */
 
+// https://codepen.io/zdflower/pen/RyPQKy
+// http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html
+const tooltip = d3.select("body").append("div").attr("id", "tooltip").style("opacity", 0);
+
 var parseTime = d3.timeParse("%Y-%m-%d");
 
 	  const margin = {top: 20, right: 20, bottom: 100, left: 100};
@@ -55,13 +59,19 @@ var parseTime = d3.timeParse("%Y-%m-%d");
 			.attr("class", "bar")
     .attr("data-date", (d) => getDateYYYYMMDD(d[0]) )
     .attr("data-gdp", (d) => d[1])
-			.append("title")
-				.text((d) => {
-					const date = d[0];
+			.on('mouseover', (d) => {
+tooltip.transition().duration(100).style("opacity", 0.9);
+      		const date = d[0];
 					const year = date.getFullYear();
 					const month = date.getMonth();
-					return "PBI: $" + d[1] + " Billion\n" + year + " - " + getMonthName(month);
-				});
+    tooltip.html(`PBI: $ ${d[1]} Billion\n ${year} - ${getMonthName(month)}`);
+    tooltip.style("left", (d3.event.pageX) + "px")     
+           .style("top", (d3.event.pageY - 28) + "px");
+    tooltip
+      .attr("data-date", getDateYYYYMMDD(date))
+  })
+  .on('mouseout', () => tooltip.transition().duration(200).style("opacity", 0))
+      
     
     // chart title
   chart.append("text")
