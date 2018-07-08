@@ -53,7 +53,7 @@ var parseTime = d3.timeParse("%Y-%m-%d");
 			.attr("y", (d) => y(d[1]))
 			.attr("x", (d) => x(d[0]))
 			.attr("class", "bar")
-    .attr("data-date", (d) => d[0])
+    .attr("data-date", (d) => getDateYYYYMMDD(d[0]) )
     .attr("data-gdp", (d) => d[1])
 			.append("title")
 				.text((d) => {
@@ -62,7 +62,7 @@ var parseTime = d3.timeParse("%Y-%m-%d");
 					const month = date.getMonth();
 					return "PBI: $" + d[1] + " Billion\n" + year + " - " + getMonthName(month);
 				});
-
+    
     // chart title
   chart.append("text")
   .attr("class", "chartTitle")
@@ -102,4 +102,17 @@ var parseTime = d3.timeParse("%Y-%m-%d");
   function getMonthName(n) {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   return meses[n];
+}
+
+function getDateYYYYMMDD(date){
+  let month = date.getMonth() + 1;
+  if (month <= 9) {
+    month = `0${month}`;
+  }
+  
+  let day = date.getDate();
+  if (day <= 9){
+    day = `0${day}`;
+  }
+  return `${date.getFullYear()}-${month}-${day}`
 }
